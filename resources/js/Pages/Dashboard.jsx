@@ -4,7 +4,7 @@ import PostCard from '@/Components/PostCard';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TimelineCard from '@/Components/TimelineCard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function Dashboard({ auth }) {
     return (
@@ -19,7 +19,7 @@ export default function Dashboard({ auth }) {
                     <div className="w-full mx-auto mt-8">
                         <div className="flex flex-row justify-between items-center mb-8">
                             <h1 className="font-semibold text-slate-800 text-xl">Groups</h1>
-                            <span className="text-sm text-blue-500">See all</span>
+                            <Link href={route('dashboard.groups')} className="text-sm text-blue-500">See all</Link>
                         </div>
                         <div className="flex flex-row justify-between">
                             <GroupCard/>
@@ -31,7 +31,7 @@ export default function Dashboard({ auth }) {
                     <div className="w-full mx-auto mt-8">
                         <div className="flex flex-row justify-between items-center mb-8">
                             <h1 className="font-semibold text-slate-800 text-xl">Posts</h1>
-                            <span className="text-sm text-blue-500">See all</span>
+                            <Link href={route('dashboard.groups')} className="text-sm text-blue-500">See all</Link>
                         </div>
                         <PostCard/>
                     </div>

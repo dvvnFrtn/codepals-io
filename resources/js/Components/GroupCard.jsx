@@ -17,7 +17,8 @@ export default function GroupCard() {
                 Mollit sint adipisicing tempor ad reprehenderit nisi nisi enim
                 et.
             </p>
-            <div className="flex justify-end items-center">
+            <div className="flex justify-between items-center">
+                <span className="text-sm text-blue-500">0/3</span>
                 <PrimaryButton>Req</PrimaryButton>
             </div>
         </div>

@@ -25,9 +25,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/groups', function () {
+    Route::get('/groups/my', function () {
         return Inertia::render('Groups/GroupIndex');
     })->name('groups.index');
+    Route::get('/dashboard/groups', function () {
+        return Inertia::render('Groups/GroupAll');
+    })->name('dashboard.groups');
+    Route::get('/dashboard/posts', function () {
+        return Inertia::render('Posts/PostAll');
+    })->name('dashboard.posts');
 });
 
 require __DIR__.'/auth.php';
