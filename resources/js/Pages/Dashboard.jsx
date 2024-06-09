@@ -31,7 +31,7 @@ export default function Dashboard({ auth }) {
                     <div className="w-full mx-auto mt-8">
                         <div className="flex flex-row justify-between items-center mb-8">
                             <h1 className="font-semibold text-slate-800 text-xl">Posts</h1>
-                            <Link href={route('dashboard.groups')} className="text-sm text-blue-500">See all</Link>
+                            <Link href={route('dashboard.posts')} className="text-sm text-blue-500">See all</Link>
                         </div>
                         <PostCard/>
                     </div>
