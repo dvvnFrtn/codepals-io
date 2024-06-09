@@ -1,0 +1,16 @@
+import PrimaryButton from "./PrimaryButton";
+
+export default function GroupAuthCard() {
+    return (
+        <div className="flex flex-col bg-white rounded-xl shadow-sm w-full p-6 gap-6">
+            <div className="flex flex-row justify-between items-center">
+                <h1 className="text-slate-800 font-semibold text-xl">Group Title</h1>
+                <PrimaryButton>0 Req</PrimaryButton>
+            </div>
+            <div className="flex justify-between items-center">
+                <p className="text-md text-slate-400">Username: Pariatur ad ut fugiat proident.</p>
+                <p className="text-sm text-slate-400">22:08</p>
+            </div>
+        </div>
+    )
+}

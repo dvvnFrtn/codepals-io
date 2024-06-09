@@ -24,4 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/groups', function () {
+        return Inertia::render('Groups/GroupIndex');
+    })->name('groups.index');
+});
+
 require __DIR__.'/auth.php';
