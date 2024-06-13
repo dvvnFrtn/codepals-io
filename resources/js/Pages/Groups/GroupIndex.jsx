@@ -17,7 +17,7 @@ export default function GroupIndex({auth}) {
     };
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            user={auth}
         >
             <Head title="Groups" />
 

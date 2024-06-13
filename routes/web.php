@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,7 +28,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/groups/my', function () {
-        return Inertia::render('Groups/GroupIndex');
+        return Inertia::render('Groups/GroupIndex', [
+            'auth' => Auth::user()
+        ]);
     })->name('groups.index');
     Route::get('/dashboard/groups', function () {
         return Inertia::render('Groups/GroupAll');
@@ -34,6 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/posts', function () {
         return Inertia::render('Posts/PostAll');
     })->name('dashboard.posts');
+    Route::get('/my', function () {
+        return Inertia::render('My/MyIndex', [
+            'auth' => Auth::user()
+        ]);
+    })->name('my.index');
+    Route::post('/picture', [UserController::class, 'uploadImage'])->name('user.image');
+    Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
+    Route::put('/user/desc/update', [UserController::class, 'updateDescription'])->name('user.desc.update');
 });
 
 require __DIR__.'/auth.php';

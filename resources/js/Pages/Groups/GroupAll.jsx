@@ -7,7 +7,7 @@ import { Head } from "@inertiajs/react";
 export default function GroupAll({auth}) {
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            user={auth}
         >
             <Head title="Groups" />
 

@@ -11,7 +11,7 @@ import { Head } from "@inertiajs/react";
 export default function PostAll({auth}) {
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            user={auth}
         >
             <Head title="Posts" />
 
