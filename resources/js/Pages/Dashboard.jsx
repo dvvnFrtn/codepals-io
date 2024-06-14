@@ -6,7 +6,7 @@ import TimelineCard from '@/Components/TimelineCard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, groups }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -22,9 +22,9 @@ export default function Dashboard({ auth }) {
                             <Link href={route('dashboard.groups')} className="text-sm text-blue-500">See all</Link>
                         </div>
                         <div className="flex flex-row justify-between">
-                            <GroupCard/>
-                            <GroupCard/>
-                            <GroupCard/>
+                            { groups && groups.map((group) => (
+                                <GroupCard key={group?.id} title={group?.title} owner={group?.owner} description={group?.description} />
+                            ))}
                         </div>
                     </div>
 

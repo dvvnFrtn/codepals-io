@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GroupController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -17,9 +20,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard.main');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.main');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,25 +29,26 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/groups/my', function () {
-        return Inertia::render('Groups/GroupIndex', [
-            'auth' => Auth::user()
-        ]);
-    })->name('groups.index');
-    Route::get('/dashboard/groups', function () {
-        return Inertia::render('Groups/GroupAll');
-    })->name('dashboard.groups');
+    
+    Route::get('/groups/my', [GroupController::class, 'index'])->name('groups.index');
+
+    Route::get('/dashboard/groups', [GroupController::class, 'all'])->name('dashboard.groups');
+
     Route::get('/dashboard/posts', function () {
         return Inertia::render('Posts/PostAll');
     })->name('dashboard.posts');
+
     Route::get('/my', function () {
         return Inertia::render('My/MyIndex', [
             'auth' => Auth::user()
         ]);
     })->name('my.index');
+    
     Route::post('/picture', [UserController::class, 'uploadImage'])->name('user.image');
     Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::put('/user/desc/update', [UserController::class, 'updateDescription'])->name('user.desc.update');
+
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
     Route::post('/posts/store', [PostController::class, 'store'])->name('post.store');
 });
 

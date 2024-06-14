@@ -4,7 +4,7 @@ import TimelineCard from "@/Components/TimelineCard";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function GroupAll({auth}) {
+export default function GroupAll({auth, groupsAll}) {
     return (
         <AuthenticatedLayout
             user={auth}
@@ -19,10 +19,9 @@ export default function GroupAll({auth}) {
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-6">
-                        <GroupCard/>
-                        <GroupCard/>
-                        <GroupCard/>
-                        <GroupCard/>
+                        { groupsAll && groupsAll.map((group) => (
+                            <GroupCard key={group?.id} title={group?.title} owner={group?.owner} description={group?.description} />
+                        ))}
                     </div>
                 </div>
                 <div className="w-full basis-1/4 pr-8 mt-8">
