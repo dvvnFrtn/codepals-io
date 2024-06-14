@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/picture', [UserController::class, 'uploadImage'])->name('user.image');
     Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::put('/user/desc/update', [UserController::class, 'updateDescription'])->name('user.desc.update');
+    Route::post('/posts/store', [PostController::class, 'store'])->name('post.store');
 });
 
 require __DIR__.'/auth.php';
