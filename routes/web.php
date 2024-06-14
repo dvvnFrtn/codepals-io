@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/user/desc/update', [UserController::class, 'updateDescription'])->name('user.desc.update');
 
     Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::post('/posts/store', [PostController::class, 'store'])->name('post.store');
 });
 
 require __DIR__.'/auth.php';
