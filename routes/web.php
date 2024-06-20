@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
     Route::post('/posts/store', [PostController::class, 'store'])->name('post.store');
+    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
 });
 
 require __DIR__.'/auth.php';
