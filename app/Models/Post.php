@@ -17,6 +17,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
     public function getFormattedUpdatedAtAttribute()
     {
         return Carbon::parse($this->attributes['updated_at'])->format('d M Y, H:i');

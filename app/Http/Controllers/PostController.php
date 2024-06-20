@@ -21,7 +21,7 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/posts'), $imageName);
             $imagePath = '/uploads/posts/' . $imageName;
         }
@@ -35,37 +35,44 @@ class PostController extends Controller
         return to_route('dashboard.posts');
     }
 
-    public function all() {
-        $posts = Post::with("user:id,name,picture")
+    public function all()
+    {
+        $posts = Post::withCount('likes')
+            ->with("user:id,name,picture")
             ->get()
             ->map(function ($post) {
-                        return [
-                            'id' => $post->id,
-                            'content' => $post->content,
-                            'image_path' => $post->image_path,
-                            'formatted_updated_at' => $post->formatted_updated_at,
-                            'user' => $post->user
-                        ];
-                    });
+                return [
+                    'id' => $post->id,
+                    'content' => $post->content,
+                    'image_path' => $post->image_path,
+                    'formatted_updated_at' => $post->formatted_updated_at,
+                    'user' => $post->user,
+                    'likes_count' => $post->likes_count,
+                    'is_liked' => $post->likes->contains('user_id', Auth::id())
+                ];
+            });
         return Inertia::render('Posts/PostAll', [
             "posts" => $posts
         ]);
     }
 
-    public function index() {
+    public function index()
+    {
         $userId = Auth::id();
-        $posts = Post::where('user_id', $userId)
+        $posts = Post::withCount('likes')->where('user_id', $userId)
             ->with("user:id,name,picture")
             ->get()
             ->map(function ($post) {
-                        return [
-                            'id' => $post->id,
-                            'content' => $post->content,
-                            'image_path' => $post->image_path,
-                            'formatted_updated_at' => $post->formatted_updated_at,
-                            'user' => $post->user
-                        ];
-                    });
+                return [
+                    'id' => $post->id,
+                    'content' => $post->content,
+                    'image_path' => $post->image_path,
+                    'formatted_updated_at' => $post->formatted_updated_at,
+                    'user' => $post->user,
+                    'likes_count' => $post->likes_count,
+                    'is_liked' => $post->likes->contains('user_id', Auth::id())
+                ];
+            });
         return Inertia::render('My/MyIndex', [
             'auth' => Auth::user(),
             'posts' => $posts
