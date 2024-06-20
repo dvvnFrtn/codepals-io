@@ -10,7 +10,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function MyIndex({auth}) {
+export default function MyIndex({auth, posts}) {
     const [isUploadImage, setIsUploadImage] = useState(false);
     const [isEditData, setIsEditData] = useState(false);
     const [isEditDesc, setIsEditDesc] = useState(false);
@@ -89,6 +89,8 @@ export default function MyIndex({auth}) {
         setIsEditDesc(false);
     };
 
+    console.log(posts);
+
     return (
         <AuthenticatedLayout
             user={auth}
@@ -107,10 +109,9 @@ export default function MyIndex({auth}) {
                         <p className={"text-md text-slate-400 " + (!isEditDesc ? "" : "hidden") }>{auth?.description}</p>
                     </form>
                     <div className="flex flex-col gap-6">
-                        <PostCard/>
-                        <PostCard/>
-                        <PostCard/>
-                        <PostCard/>
+                        { posts && posts.map((post) => (
+                            <PostCard key={post?.id} username={post?.user.name} picture={post?.user.picture} body={post?.content} image_path={post?.image_path} updated_at={post?.formatted_updated_at} />
+                        )) }
                     </div>
                 </div>
                 <div className="w-full basis-1/4 pr-8 mt-8">

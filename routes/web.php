@@ -34,15 +34,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard/groups', [GroupController::class, 'all'])->name('dashboard.groups');
 
-    Route::get('/dashboard/posts', function () {
-        return Inertia::render('Posts/PostAll');
-    })->name('dashboard.posts');
+    Route::get('/dashboard/posts', [PostController::class, 'all'])->name('dashboard.posts');
 
-    Route::get('/my', function () {
-        return Inertia::render('My/MyIndex', [
-            'auth' => Auth::user()
-        ]);
-    })->name('my.index');
+    Route::get('/my', [PostController::class, 'index'])->name('my.index');
     
     Route::post('/picture', [UserController::class, 'uploadImage'])->name('user.image');
     Route::put('/user/update', [UserController::class, 'update'])->name('user.update');

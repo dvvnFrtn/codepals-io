@@ -6,7 +6,7 @@ import TimelineCard from '@/Components/TimelineCard';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Dashboard({ auth, groups }) {
+export default function Dashboard({ auth, groups,post }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -33,7 +33,7 @@ export default function Dashboard({ auth, groups }) {
                             <h1 className="font-semibold text-slate-800 text-xl">Posts</h1>
                             <Link href={route('dashboard.posts')} className="text-sm text-blue-500">See all</Link>
                         </div>
-                        <PostCard/>
+                        <PostCard username={post?.user.name} picture={post?.user.picture} updated_at={post?.formatted_updated_at} body={post?.content} image_path={post?.image_path}/>
                     </div>
                 </div>
                 <div className="w-full basis-1/4 pr-8 mt-8">

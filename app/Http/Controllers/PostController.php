@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -18,7 +20,10 @@ class PostController extends Controller
         $imagePath = null;
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('uploads/posts', 'public');
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploads/posts'), $imageName);
+            $imagePath = '/uploads/posts/' . $imageName;
         }
 
         Post::create([
@@ -28,5 +33,42 @@ class PostController extends Controller
         ]);
 
         return to_route('dashboard.posts');
+    }
+
+    public function all() {
+        $posts = Post::with("user:id,name,picture")
+            ->get()
+            ->map(function ($post) {
+                        return [
+                            'id' => $post->id,
+                            'content' => $post->content,
+                            'image_path' => $post->image_path,
+                            'formatted_updated_at' => $post->formatted_updated_at,
+                            'user' => $post->user
+                        ];
+                    });
+        return Inertia::render('Posts/PostAll', [
+            "posts" => $posts
+        ]);
+    }
+
+    public function index() {
+        $userId = Auth::id();
+        $posts = Post::where('user_id', $userId)
+            ->with("user:id,name,picture")
+            ->get()
+            ->map(function ($post) {
+                        return [
+                            'id' => $post->id,
+                            'content' => $post->content,
+                            'image_path' => $post->image_path,
+                            'formatted_updated_at' => $post->formatted_updated_at,
+                            'user' => $post->user
+                        ];
+                    });
+        return Inertia::render('My/MyIndex', [
+            'auth' => Auth::user(),
+            'posts' => $posts
+        ]);
     }
 }

@@ -1,28 +1,25 @@
-export default function PostCard() {
+export default function PostCard({username, body, updated_at, image_path, picture}) {
     return (
         <div className="w-full flex flex-col bg-white shadow-sm rounded-xl p-6">
             <div className="flex flex-row items-center gap-6">
-                <div className="bg-gray-300 rounded-full w-14 h-14"></div>
+                <div className="bg-gray-300 rounded-full w-14 h-14">
+                    <img src={"/uploads/" + picture} alt="profile" className="w-auto rounded-full object-cover" />
+                </div>
                 <div className="flex flex-col items-start justify-center">
                     <h1 className="font-semibold text-slate-800 text-xl">
-                        Username
+                        {username}
                     </h1>
-                    <p className="text-sm text-slate-400">May, 23 2024</p>
+                    <p className="text-sm text-slate-400">{updated_at}</p>
                 </div>
             </div>
             <p className="text-md text-slate-400 mt-8">
-                Eu magna esse eiusmod irure fugiat minim tempor aliquip duis
-                nostrud tempor consequat. Qui consectetur sit incididunt Lorem
-                mollit anim qui fugiat sit aliqua consequat. Fugiat tempor culpa
-                qui sint laboris ea velit aliqua aliquip cillum nulla mollit
-                tempor adipisicing. Ipsum ut tempor amet consectetur occaecat
-                deserunt ipsum.
+                {body}
             </p>
-            <img
-                src="/dummy-img.jpg"
+            { image_path && <img
+                src={ image_path }
                 alt="image"
-                className="mt-6 rounded-lg max-h-96 object-top object-cover"
-            />
+                className={"mt-6 rounded-lg max-h-96 object-top object-cover"}
+            /> }
             <div className="flex flex-row mt-6 items-center gap-2">
                 <svg viewBox="0 0 24 24" width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="#000000">
                     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
