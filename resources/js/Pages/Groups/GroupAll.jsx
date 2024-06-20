@@ -2,13 +2,11 @@ import BasicDateCalendar from "@/Components/BasicDateCalendar";
 import GroupCard from "@/Components/GroupCard";
 import TimelineCard from "@/Components/TimelineCard";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
-export default function GroupAll({auth, groupsAll}) {
+export default function GroupAll({ auth, groupsAll }) {
     return (
-        <AuthenticatedLayout
-            user={auth}
-        >
+        <AuthenticatedLayout user={auth}>
             <Head title="Groups" />
 
             <div className="flex gap-8 justify-center">
@@ -19,18 +17,24 @@ export default function GroupAll({auth, groupsAll}) {
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-6">
-                        { groupsAll && groupsAll.map((group) => (
-                            <GroupCard key={group?.id} title={group?.title} owner={group?.owner} description={group?.description} />
+                        {groupsAll && groupsAll.map((group) => (
+                            <Link key={group.id} href={route('groups.show', group.id)} className="no-underline">
+                                <GroupCard
+                                    title={group.title}
+                                    owner={group.owner}
+                                    description={group.description}
+                                />
+                            </Link>
                         ))}
                     </div>
                 </div>
                 <div className="w-full basis-1/4 pr-8 mt-8">
-                    <BasicDateCalendar/>
-                    <TimelineCard/>
-                    <TimelineCard/>
-                    <TimelineCard/>
+                    <BasicDateCalendar />
+                    <TimelineCard />
+                    <TimelineCard />
+                    <TimelineCard />
                 </div>
             </div>
         </AuthenticatedLayout>
-    )
+    );
 }
