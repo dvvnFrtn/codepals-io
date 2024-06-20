@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\User;
+use App\Models\JoinRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -13,17 +14,13 @@ class GroupController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     public function index()
     {
         $user = User::find(Auth::user()->id);
 
-        // Mengambil semua grup di mana pengguna saat ini adalah owner
         $ownedGroups = Group::where('owner', $user->name)->get();
+        $memberGroups = $user->groups()->get();
 
-        // Mengambil semua grup di mana pengguna saat ini adalah member
-        $memberGroups = $user->groups()->get(); // Pastikan method `groups()` ada di model User
-
-        // Menggabungkan dan menghapus duplikasi grup
         $groups = $ownedGroups->merge($memberGroups)->unique();
 
         return Inertia::render('Groups/GroupIndex', [
@@ -59,26 +56,35 @@ class GroupController extends Controller
             'max_user' => 'required|integer',
             'description' => 'nullable|string'
         ]);
-
+    
         $user = $request->user();
-
-        Group::create([
+    
+        // Membuat grup baru
+        $group = Group::create([
             'title' => $request->title,
             'max_user' => $request->max_user,
             'description' => $request->description,
             'owner' => $user->name, // Set owner ke user yang sedang login
         ]);
-
+    
+        // Menambahkan owner sebagai member dari grup
+        $group->members()->attach($user);
+    
         return redirect()->route('groups.index'); // Redirect ke halaman My Groups setelah berhasil membuat grup
     }
+    
 
     /**
      * Display the specified resource.
      */
     public function show(Group $group)
     {
-        //
+        return Inertia::render('Groups/DetailGroup', [
+            'auth' => Auth::user(),
+            'group' => $group,
+        ]);
     }
+    
 
     /**
      * Show the form for editing the specified resource.

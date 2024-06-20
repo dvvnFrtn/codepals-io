@@ -46,8 +46,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
     Route::post('/posts/store', [PostController::class, 'store'])->name('post.store');
+  
     Route::post('/posts/{id}/like', [LikeController::class, 'store'])->name('posts.like');
     Route::delete('/posts/{id}/like', [LikeController::class, 'destroy'])->name('posts.unlike');
+  
+    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
 });
 
 require __DIR__ . '/auth.php';
