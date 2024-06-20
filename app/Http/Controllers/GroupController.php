@@ -31,11 +31,12 @@ class GroupController extends Controller
             "groups" => $groups
         ]);
     }
-    
-    public function all() {
+
+    public function all()
+    {
         $groupsAll = Group::all();
         return Inertia::render('Groups/GroupAll', [
-            'groupsAll'=> $groupsAll
+            'groupsAll' => $groupsAll
         ]);
     }
 
@@ -45,7 +46,7 @@ class GroupController extends Controller
     public function create()
     {
         //
-        
+
     }
 
     /**
