@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{id}/like', [LikeController::class, 'destroy'])->name('posts.unlike');
   
     Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/groups/{group}/find-member', [GroupController::class, 'findMember'])->name('groups.findMember');
 
     Route::post('/groups/{group}/request', [GroupRequestController::class, 'requestJoin'])->name('group.request');
     Route::post('/group-requests/{groupRequest}/approve', [GroupRequestController::class, 'approveRequest'])->name('group-requests.approve');

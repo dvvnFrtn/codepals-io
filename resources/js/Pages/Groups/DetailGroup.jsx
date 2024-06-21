@@ -1,8 +1,9 @@
+import { Link } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 
-export default function DetailGroup({ auth, group, requests}) {
+export default function DetailGroup({ auth, group, isOwner, requests}) {
     const approveRequest = (groupRequest) => {
         // Kirim permintaan POST ke endpoint approveRequest
         axios.post(route('group-requests.approve', groupRequest))
@@ -28,6 +29,13 @@ export default function DetailGroup({ auth, group, requests}) {
                     <p className="text-gray-800"><strong>Owner:</strong> {group.owner}</p>
                     <p className="text-gray-800"><strong>Max Users:</strong> {group.max_user}</p>
                 </div>
+                {isOwner && (
+                    <div className="mt-6">
+                        <Link href={route('groups.findMember', group.id)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            Find Member
+                        </Link>
+                    </div>
+                )}
             </div>
             {auth.name == group.owner ? 
                 <div className="max-w-5xl mx-auto p-8 bg-white shadow-sm rounded-lg mt-2">
