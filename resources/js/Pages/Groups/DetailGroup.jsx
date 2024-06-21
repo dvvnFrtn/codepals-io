@@ -2,8 +2,9 @@ import { Link } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
+import SecondaryButton from "@/Components/SecondaryButton";
 
-export default function DetailGroup({ auth, group, isOwner, requests}) {
+export default function DetailGroup({ auth, group, isOwner, requests, isMember}) {
     const approveRequest = (groupRequest) => {
         // Kirim permintaan POST ke endpoint approveRequest
         axios.post(route('group-requests.approve', groupRequest))
@@ -23,7 +24,12 @@ export default function DetailGroup({ auth, group, isOwner, requests}) {
             <Head title={group.title} />
 
             <div className="max-w-5xl mx-auto p-8 bg-white shadow-sm rounded-lg mt-8">
-                <h1 className="text-3xl font-semibold text-gray-800">{group.title}</h1>
+                <div className="flex flex-row justify-between">
+                    <h1 className="text-3xl font-semibold text-gray-800">{group.title}</h1>
+                    {isMember && (
+                        <SecondaryButton>Chat</SecondaryButton>
+                    )}
+                </div>
                 <p className="mt-4 text-gray-600">{group.description}</p>
                 <div className="mt-6">
                     <p className="text-gray-800"><strong>Owner:</strong> {group.owner}</p>
