@@ -52,15 +52,15 @@ export default function Dashboard({ auth, groups, post }) {
                             </Link>
                         </div>
                         <PostCard
-                            key={post.id}
-                            id={post.id}
-                            username={post.user.name}
-                            body={post.content}
-                            updated_at={post.formatted_updated_at}
-                            image_path={post.image_path}
-                            picture={post.user.picture}
-                            isLiked={post.is_liked}
-                            likesCount={post.likes_count}
+                            key={post?.id}
+                            id={post?.id}
+                            username={post?.user.name}
+                            body={post?.content}
+                            updated_at={post?.formatted_updated_at}
+                            image_path={post?.image_path}
+                            picture={post?.user.picture}
+                            isLiked={post?.is_liked}
+                            likesCount={post?.likes_count}
                         />{" "}
                     </div>
                 </div>
