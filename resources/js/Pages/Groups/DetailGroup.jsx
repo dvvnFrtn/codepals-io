@@ -14,6 +14,9 @@ export default function DetailGroup({ auth, group }) {
                     <p className="text-gray-800"><strong>Max Users:</strong> {group.max_user}</p>
                 </div>
             </div>
+            <div className="max-w-5xl mx-auto p-8 bg-white shadow-sm rounded-lg mt-2">
+
+            </div>
         </AuthenticatedLayout>
     );
 }

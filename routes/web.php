@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\GroupRequestController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{id}/like', [LikeController::class, 'destroy'])->name('posts.unlike');
   
     Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+
+    Route::post('/groups/{group}/request', [GroupRequestController::class, 'requestJoin'])->name('group.request');
+    Route::post('/group-requests/{groupRequest}/approve', [GroupRequestController::class, 'approveRequest']);
 });
 
 require __DIR__ . '/auth.php';

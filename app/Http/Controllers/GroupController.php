@@ -18,8 +18,13 @@ class GroupController extends Controller
     {
         $user = User::find(Auth::user()->id);
 
-        $ownedGroups = Group::where('owner', $user->name)->get();
-        $memberGroups = $user->groups()->get();
+        $ownedGroups = Group::withCount('requests')
+                        ->where('owner', $user->name)
+                        ->get();
+
+        $memberGroups = $user->groups()
+                        ->withCount('requests')
+                        ->get();
 
         $groups = $ownedGroups->merge($memberGroups)->unique();
 
@@ -31,7 +36,8 @@ class GroupController extends Controller
 
     public function all()
     {
-        $groupsAll = Group::all();
+        $groupsAll = Group::withCount('requests')
+                        ->get();
         return Inertia::render('Groups/GroupAll', [
             'groupsAll' => $groupsAll
         ]);

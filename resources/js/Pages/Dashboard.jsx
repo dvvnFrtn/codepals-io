@@ -30,10 +30,13 @@ export default function Dashboard({ auth, groups, post }) {
                             {groups &&
                                 groups.map((group) => (
                                     <GroupCard
+                                        auth={auth.user}
+                                        groupId={group.id}
                                         key={group?.id}
                                         title={group?.title}
                                         owner={group?.owner}
                                         description={group?.description}
+                                        reqCount={group?.requests_count}
                                     />
                                 ))}
                         </div>
