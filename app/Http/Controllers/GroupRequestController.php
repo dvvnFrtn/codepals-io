@@ -26,11 +26,12 @@ class GroupRequestController extends Controller
 
     public function approveRequest(GroupRequest $groupRequest)
     {
-        $groupRequest->update(['status' => 'accepted']);
-
-        // Tambahkan user ke grup
-        $groupRequest->group->members()->attach($groupRequest->user_id);
-
+        $group = Group::find($groupRequest->group_id);
+        if ($group->members()->count() !== $group->max_user) {
+            $groupRequest->update(['status' => 'accepted']);
+            // Tambahkan user ke grup
+            $groupRequest->group->members()->attach($groupRequest->user_id);
+        }
         return redirect()->back();
     }
 }
