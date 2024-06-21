@@ -110,7 +110,7 @@ export default function MyIndex({auth, posts}) {
                     </form>
                     <div className="flex flex-col gap-6">
                         { posts && posts.map((post) => (
-                            <PostCard key={post?.id} username={post?.user.name} picture={post?.user.picture} body={post?.content} image_path={post?.image_path} updated_at={post?.formatted_updated_at} />
+                            <PostCard key={post?.id} id={post?.id} username={post?.user.name} picture={post?.user.picture} body={post?.content} image_path={post?.image_path} updated_at={post?.formatted_updated_at} isLiked={post?.is_liked} likesCount={post?.likes_count}/>
                         )) }
                     </div>
                 </div>

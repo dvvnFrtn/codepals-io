@@ -125,15 +125,15 @@ export default function PostAll({ auth, posts }) {
                         {posts &&
                             posts.map((post) => (
                                 <PostCard
-                                    key={post.id}
-                                    id={post.id}
-                                    username={post.user.name}
-                                    body={post.content}
-                                    updated_at={post.formatted_updated_at}
-                                    image_path={post.image_path}
-                                    picture={post.user.picture}
-                                    isLiked={post.is_liked}
-                                    likesCount={post.likes_count}
+                                    key={post?.id}
+                                    id={post?.id}
+                                    username={post?.user.name}
+                                    body={post?.content}
+                                    updated_at={post?.formatted_updated_at}
+                                    image_path={post?.image_path}
+                                    picture={post?.user.picture}
+                                    isLiked={post?.is_liked}
+                                    likesCount={post?.likes_count}
                                 />
                             ))}
                     </div>

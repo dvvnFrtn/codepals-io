@@ -59,7 +59,8 @@ class PostController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $posts = Post::withCount('likes')->where('user_id', $userId)
+        $posts = Post::where('user_id', $userId)
+            ->withCount('likes')
             ->with("user:id,name,picture")
             ->get()
             ->map(function ($post) {

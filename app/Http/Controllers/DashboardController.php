@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -14,6 +15,7 @@ class DashboardController extends Controller
     {
         $groups = Group::take(3)->get();
         $post = Post::with("user:id,name,picture")
+            ->withCount('likes')
             ->latest()
             ->first();
 
@@ -23,7 +25,9 @@ class DashboardController extends Controller
                 'content' => $post->content,
                 'image_path' => $post->image_path,
                 'formatted_updated_at' => $post->formatted_updated_at,
-                'user' => $post->user
+                'user' => $post->user,
+                'likes_count' => $post->likes_count,
+                'is_liked' => $post->likes->contains('user_id', Auth::id())
             ];
         }
         return Inertia::render('Dashboard', [
