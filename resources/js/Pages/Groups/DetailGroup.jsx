@@ -1,10 +1,22 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 
 export default function DetailGroup({ auth, group, requests}) {
-    console.log(group);
-    console.log(requests);
+    const approveRequest = (groupRequest) => {
+        // Kirim permintaan POST ke endpoint approveRequest
+        axios.post(route('group-requests.approve', groupRequest))
+            .then(response => {
+                // Handle sukses
+                console.log('Request approved successfully');
+                // Refresh halaman atau lakukan manipulasi sesuai kebutuhan
+                window.location.reload();
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error approving request:', error);
+            });
+    };
     return (
         <AuthenticatedLayout user={auth}>
             <Head title={group.title} />
@@ -24,7 +36,7 @@ export default function DetailGroup({ auth, group, requests}) {
                     <div className="w-auto rounded-md flex flex-col mt-4">
                         <div className="flex flex-row justify-between">
                             <h1>{request.requester_name}</h1>
-                            <PrimaryButton>Accept</PrimaryButton>
+                            {request.status !== "accepted" ? <PrimaryButton onClick={() => approveRequest(request?.id)}>Accept</PrimaryButton> : ""}
                         </div>
                         <span className="text-xs text-gray-500">{request.created_at}</span>
                         <span className="font-semibold text-blue-500">{request.status}</span>

@@ -14,10 +14,12 @@ class GroupRequestController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $groupRequest = GroupRequest::create([
-            'group_id' => $group->id,
-            'user_id' => $request->user_id,
-        ]);
+        if ($group->members()->count() !== $group->max_user) {
+            $groupRequest = GroupRequest::create([
+                'group_id' => $group->id,
+                'user_id' => $request->user_id,
+            ]);
+        }
 
         return redirect()->back();
     }

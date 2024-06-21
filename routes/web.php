@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
 
     Route::post('/groups/{group}/request', [GroupRequestController::class, 'requestJoin'])->name('group.request');
-    Route::post('/group-requests/{groupRequest}/approve', [GroupRequestController::class, 'approveRequest']);
+    Route::post('/group-requests/{groupRequest}/approve', [GroupRequestController::class, 'approveRequest'])->name('group-requests.approve');
 });
 
 require __DIR__ . '/auth.php';

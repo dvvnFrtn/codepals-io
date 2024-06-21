@@ -4,7 +4,7 @@ import TimelineCard from "@/Components/TimelineCard";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-export default function GroupAll({ auth, groupsAll }) {
+export default function GroupAll({ auth, groupsAll}) {
     console.log(groupsAll);
     return (
         <AuthenticatedLayout user={auth}>
