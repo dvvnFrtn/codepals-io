@@ -1,11 +1,6 @@
 {
     "version": 2,
     "framework": null,
-    "builds": [
-        {
-            "use": "@vercel/node@18"
-        }
-    ],
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
     },
