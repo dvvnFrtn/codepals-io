@@ -14,6 +14,27 @@ class GroupController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function findMember(Group $group)
+    {
+        $authUser = Auth::user();
+        $users = User::where('id', '!=', $authUser->id)->get(); // Exclude the logged-in user
+    
+        return Inertia::render('Groups/FindMember', [
+            'auth' => $authUser,
+            'group' => $group,
+            'users' => $users->map(function($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'role' => $user->role,
+                    'status' => $user->status,
+                    'picture' => $user->picture,
+                    'description' => $user->description,
+                ];
+            }),
+        ]);
+    }
+    
      public function index()
     {
         $user = User::find(Auth::user()->id);
@@ -79,12 +100,19 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        return Inertia::render('Groups/DetailGroup', [
-            'auth' => Auth::user(),
-            'group' => $group,
-        ]);
-    }
+        $user = Auth::user();
     
+        // Check if the current user is a member of the group
+        $isMember = $group->members()->where('user_id', $user->id)->exists();
+    
+        return Inertia::render('Groups/DetailGroup', [
+            'auth' => $user,
+            'group' => $group,
+            'isOwner' => $group->owner === $user->name,
+            'isMember' => $isMember,
+        ]);
+    }    
+
 
     /**
      * Show the form for editing the specified resource.

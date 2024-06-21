@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{id}/like', [LikeController::class, 'destroy'])->name('posts.unlike');
   
     Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/groups/{group}/find-member', [GroupController::class, 'findMember'])->name('groups.findMember');
 });
 
 require __DIR__ . '/auth.php';
