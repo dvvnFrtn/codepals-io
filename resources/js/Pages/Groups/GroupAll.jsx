@@ -35,8 +35,6 @@ export default function GroupAll({ auth, groupsAll}) {
                 <div className="w-full basis-1/4 pr-8 mt-8">
                     <BasicDateCalendar />
                     <TimelineCard />
-                    <TimelineCard />
-                    <TimelineCard />
                 </div>
             </div>
         </AuthenticatedLayout>

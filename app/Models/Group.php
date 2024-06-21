@@ -24,4 +24,9 @@ class Group extends Model
     {
         return $this->hasMany(GroupRequest::class);
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }

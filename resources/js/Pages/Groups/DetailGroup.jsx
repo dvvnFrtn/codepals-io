@@ -27,7 +27,9 @@ export default function DetailGroup({ auth, group, isOwner, requests, isMember})
                 <div className="flex flex-row justify-between">
                     <h1 className="text-3xl font-semibold text-gray-800">{group.title}</h1>
                     {isMember && (
-                        <SecondaryButton>Chat</SecondaryButton>
+                        <Link href={route('group.chat', group.id)}>
+                            <SecondaryButton>Chat</SecondaryButton>
+                        </Link>
                     )}
                 </div>
                 <p className="mt-4 text-gray-600">{group.description}</p>

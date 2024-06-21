@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chat;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\JoinRequest;
@@ -149,5 +150,14 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         //
+    }
+
+    public function getLastChat(Group $group)
+    {
+        $lastChat = Chat::where('group_id', $group->id)
+                        ->latest() // Mengambil chat terakhir berdasarkan timestamp
+                        ->first();
+
+        return response()->json($lastChat);
     }
 }

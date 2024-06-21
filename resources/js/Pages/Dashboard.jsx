@@ -72,8 +72,6 @@ export default function Dashboard({ auth, groups, post }) {
                 <div className="w-full basis-1/4 pr-8 mt-8">
                     <BasicDateCalendar />
                     <TimelineCard />
-                    <TimelineCard />
-                    <TimelineCard />
                 </div>
             </div>
         </AuthenticatedLayout>
