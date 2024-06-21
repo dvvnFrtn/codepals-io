@@ -7,7 +7,7 @@ import TextInput from "@/Components/TextInput";
 import TimelineCard from "@/Components/TimelineCard";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function GroupIndex({ auth, groups }) {
     const [isFormVisible, setIsFormVisible] = useState(false);
@@ -16,6 +16,24 @@ export default function GroupIndex({ auth, groups }) {
         max_user: 0,
         description: ''
     });
+
+    const [lastChats, setLastChats] = useState({});
+
+    useEffect(() => {
+        // Fetch last chat for each group
+        groups.forEach((group) => {
+            axios.get(route('groups.lastChat', group.id))
+                .then(response => {
+                    setLastChats(prevChats => ({
+                        ...prevChats,
+                        [group.id]: response.data // Assuming response.data contains last chat info
+                    }));
+                })
+                .catch(error => {
+                    console.error('Error fetching last chat:', error);
+                });
+        });
+    }, [groups]);
 
     const toggleFormVisibility = () => {
         setIsFormVisible(!isFormVisible);
@@ -30,7 +48,7 @@ export default function GroupIndex({ auth, groups }) {
             },
         });
     };
-
+    console.log(lastChats[groups[0].id]);
     return (
         <AuthenticatedLayout user={auth}>
             <Head title="Groups" />
@@ -85,15 +103,13 @@ export default function GroupIndex({ auth, groups }) {
                     <div className="flex flex-col gap-6">
                         {groups && groups.map((group) => (
                             <Link key={group?.id} href={route('groups.show', group.id)}>
-                                <GroupAuthCard title={group?.title} />
+                                <GroupAuthCard title={group?.title} reqCount={group?.requests_count} lastChat={lastChats[group.id]}/>
                             </Link>
                         ))}
                     </div>
                 </div>
                 <div className="w-full basis-1/4 pr-8 mt-8">
                     <BasicDateCalendar />
-                    <TimelineCard />
-                    <TimelineCard />
                     <TimelineCard />
                 </div>
             </div>

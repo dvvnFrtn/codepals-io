@@ -13,7 +13,10 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $groups = Group::take(3)->get();
+        $groups = Group::withCount('requests')
+                    ->take(3)
+                    ->get();
+
         $post = Post::with("user:id,name,picture")
             ->withCount('likes')
             ->latest()

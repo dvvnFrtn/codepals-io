@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chat;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\JoinRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class GroupController extends Controller
@@ -39,8 +41,13 @@ class GroupController extends Controller
     {
         $user = User::find(Auth::user()->id);
 
-        $ownedGroups = Group::where('owner', $user->name)->get();
-        $memberGroups = $user->groups()->get();
+        $ownedGroups = Group::withCount('requests')
+                        ->where('owner', $user->name)
+                        ->get();
+
+        $memberGroups = $user->groups()
+                        ->withCount('requests')
+                        ->get();
 
         $groups = $ownedGroups->merge($memberGroups)->unique();
 
@@ -52,7 +59,8 @@ class GroupController extends Controller
 
     public function all()
     {
-        $groupsAll = Group::all();
+        $groupsAll = Group::withCount('requests')
+                        ->get();
         return Inertia::render('Groups/GroupAll', [
             'groupsAll' => $groupsAll
         ]);
@@ -92,14 +100,19 @@ class GroupController extends Controller
         $group->members()->attach($user);
     
         return redirect()->route('groups.index'); // Redirect ke halaman My Groups setelah berhasil membuat grup
-    }
-    
+    }  
 
     /**
      * Display the specified resource.
      */
     public function show(Group $group)
     {
+        $requests = DB::table('group_requests')
+                    ->where('group_id', $group->id)
+                    ->leftJoin('users', 'group_requests.user_id', '=', 'users.id')
+                    ->select('group_requests.*', 'users.name as requester_name')
+                    ->get();
+
         $user = Auth::user();
     
         // Check if the current user is a member of the group
@@ -110,6 +123,7 @@ class GroupController extends Controller
             'group' => $group,
             'isOwner' => $group->owner === $user->name,
             'isMember' => $isMember,
+            'requests' => $requests
         ]);
     }    
 
@@ -136,5 +150,14 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         //
+    }
+
+    public function getLastChat(Group $group)
+    {
+        $lastChat = Chat::where('group_id', $group->id)
+                        ->latest() // Mengambil chat terakhir berdasarkan timestamp
+                        ->first();
+
+        return response()->json($lastChat);
     }
 }

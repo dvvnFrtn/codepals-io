@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\GroupRequestController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +54,13 @@ Route::middleware('auth')->group(function () {
   
     Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
     Route::get('/groups/{group}/find-member', [GroupController::class, 'findMember'])->name('groups.findMember');
+
+    Route::post('/groups/{group}/request', [GroupRequestController::class, 'requestJoin'])->name('group.request');
+    Route::post('/group-requests/{groupRequest}/approve', [GroupRequestController::class, 'approveRequest'])->name('group-requests.approve');
+
+    Route::get('/groups/{groupId}/chat', [ChatController::class, 'index'])->name('group.chat');
+    Route::post('/groups/{groupId}/chat', [ChatController::class, 'store'])->name('group.chat.store');
+    Route::get('/groups/{group}/last-chat', [GroupController::class, 'getLastChat'])->name('groups.lastChat');
 });
 
 require __DIR__ . '/auth.php';

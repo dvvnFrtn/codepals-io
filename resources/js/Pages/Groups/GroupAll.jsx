@@ -4,7 +4,8 @@ import TimelineCard from "@/Components/TimelineCard";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-export default function GroupAll({ auth, groupsAll }) {
+export default function GroupAll({ auth, groupsAll}) {
+    console.log(groupsAll);
     return (
         <AuthenticatedLayout user={auth}>
             <Head title="Groups" />
@@ -18,11 +19,14 @@ export default function GroupAll({ auth, groupsAll }) {
                     </div>
                     <div className="grid grid-cols-3 gap-6">
                         {groupsAll && groupsAll.map((group) => (
-                            <Link key={group.id} href={route('groups.show', group.id)} className="no-underline">
+                            <Link key={group?.id} href={route('groups.show', group.id)}>
                                 <GroupCard
+                                    auth={auth.user}
+                                    groupId={group.id}
                                     title={group.title}
                                     owner={group.owner}
                                     description={group.description}
+                                    reqCount={group.requests_count}
                                 />
                             </Link>
                         ))}
@@ -30,8 +34,6 @@ export default function GroupAll({ auth, groupsAll }) {
                 </div>
                 <div className="w-full basis-1/4 pr-8 mt-8">
                     <BasicDateCalendar />
-                    <TimelineCard />
-                    <TimelineCard />
                     <TimelineCard />
                 </div>
             </div>
