@@ -3,7 +3,8 @@ import PrimaryButton from "./PrimaryButton";
 import SecondaryButton from "./SecondaryButton";
 
 export default function GroupCard({auth, groupId, title, owner, description, reqCount}) {
-    const handleRequestJoin = () => {
+    const handleRequestJoin = (e) => {
+        e.stopPropagation();
         router.post(route('group.request', { group: groupId }), {
             user_id: auth.id
         }, {

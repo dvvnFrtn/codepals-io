@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\JoinRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class GroupController extends Controller
@@ -77,17 +78,23 @@ class GroupController extends Controller
         $group->members()->attach($user);
     
         return redirect()->route('groups.index'); // Redirect ke halaman My Groups setelah berhasil membuat grup
-    }
-    
+    }  
 
     /**
      * Display the specified resource.
      */
     public function show(Group $group)
     {
+        $requests = DB::table('group_requests')
+                    ->where('group_id', $group->id)
+                    ->leftJoin('users', 'group_requests.user_id', '=', 'users.id')
+                    ->select('group_requests.*', 'users.name as requester_name')
+                    ->get();
+
         return Inertia::render('Groups/DetailGroup', [
             'auth' => Auth::user(),
             'group' => $group,
+            'requests' => $requests
         ]);
     }
     

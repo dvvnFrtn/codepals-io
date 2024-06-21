@@ -29,15 +29,17 @@ export default function Dashboard({ auth, groups, post }) {
                         <div className="flex flex-row justify-between">
                             {groups &&
                                 groups.map((group) => (
-                                    <GroupCard
-                                        auth={auth.user}
-                                        groupId={group.id}
-                                        key={group?.id}
-                                        title={group?.title}
-                                        owner={group?.owner}
-                                        description={group?.description}
-                                        reqCount={group?.requests_count}
-                                    />
+                                    <Link key={group?.id} href={route('groups.show', group.id)}>
+                                        <GroupCard
+                                            auth={auth.user}
+                                            groupId={group.id}
+                                            key={group?.id}
+                                            title={group?.title}
+                                            owner={group?.owner}
+                                            description={group?.description}
+                                            reqCount={group?.requests_count}
+                                        />
+                                    </Link>
                                 ))}
                         </div>
                     </div>
