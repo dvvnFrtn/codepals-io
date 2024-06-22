@@ -7,13 +7,7 @@
     "routes": [
         { "src": "/build/(.*)", "dest": "/public/build/" },
         { "src": "/(.*)", "dest": "/api/index.php" },
-        { "src": "/uploads/(.*)", "dest": "/public/uploads/" }
-    ],
-    "rewrites": [
-        {
-        "source": "/uploads/:path*",
-        "destination": "/public/uploads/:path*"
-        }
+        { "src": "/uploads/(.*)", "dest": "public/uploads/" }
     ],
     "public": true,
     "buildCommand": "vite build",
