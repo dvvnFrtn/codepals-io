@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "post-install-cmd": "php artisan config:cache"
     },
     "devDependencies": {
         "@headlessui/react": "^1.4.2",
