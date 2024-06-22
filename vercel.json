@@ -9,6 +9,12 @@
         { "src": "/(.*)", "dest": "/api/index.php" },
         { "src": "/uploads/(.*)", "dest": "/public/uploads/" }
     ],
+    "rewrites": [
+        {
+        "source": "/uploads/:path*",
+        "destination": "/public/uploads/:path*"
+        }
+    ],
     "public": true,
     "buildCommand": "vite build",
     "outputDirectory": "public",
