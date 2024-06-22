@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import { usePage } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Chat({ group, chats }) {
@@ -44,6 +44,7 @@ export default function Chat({ group, chats }) {
 
     return (
         <AuthenticatedLayout user={auth}>
+            <Head title='Chat'/>
             <div className="max-w-5xl mx-auto p-8 bg-white shadow-sm rounded-lg mt-8">
                 <h1 className="text-3xl font-semibold text-gray-800">{group.title}</h1>
                 <div className="chat-container">
