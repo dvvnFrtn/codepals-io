@@ -49,7 +49,7 @@ export default function GroupIndex({ auth, groups }) {
         });
     };
     return (
-        <AuthenticatedLayout user={auth}>
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Groups" />
 
             <div className="flex gap-8 justify-center">
@@ -101,8 +101,8 @@ export default function GroupIndex({ auth, groups }) {
                     </div>
                     <div className="flex flex-col gap-6">
                         {groups && groups.map((group) => (
-                            <Link key={group?.id} href={route('groups.show', group.id)}>
-                                <GroupAuthCard title={group?.title} reqCount={group?.requests_count} lastChat={lastChats[group.id]}/>
+                            <Link key={group?.id} href={route('groups.show', group?.id)}>
+                                <GroupAuthCard title={group?.title} reqCount={group?.requests_count} lastChat={lastChats[group?.id]}/>
                             </Link>
                         ))}
                     </div>

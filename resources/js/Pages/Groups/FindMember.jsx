@@ -11,19 +11,19 @@ export default function FindMember({ auth, group, users }) {
     const currentUser = users[currentIndex];
 
     const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % users.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % users?.length);
     };
 
     const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + users.length) % users.length);
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + users?.length) % users?.length);
     };
 
     return (
-        <AuthenticatedLayout user={auth}>
-            <Head title={`Add Member to ${group.title}`} />
+        <AuthenticatedLayout user={auth.user}>
+            <Head title={`Find ${group?.title}`} />
             
             <div className="bg-white shadow-sm rounded-lg mt-8 h-screen">
-                <h1 className="max-w-5xl mx-auto p-8">Add Members to {group.title}</h1>
+                <h1 className="max-w-5xl mx-auto p-8">Add Members to {group?.title}</h1>
                 <div className="h-4/5 mt-6 flex justify-between items-center">
                     <SecondaryButton className="mx-5" onClick={handlePrev}>
                         Previous

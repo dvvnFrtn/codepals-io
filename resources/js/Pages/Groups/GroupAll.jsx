@@ -6,7 +6,7 @@ import { Head, Link } from "@inertiajs/react";
 
 export default function GroupAll({ auth, groupsAll}) {
     return (
-        <AuthenticatedLayout user={auth}>
+        <AuthenticatedLayout user={auth.user}>
             <Head title="Groups" />
 
             <div className="flex gap-8 justify-center">
@@ -18,14 +18,14 @@ export default function GroupAll({ auth, groupsAll}) {
                     </div>
                     <div className="grid grid-cols-3 gap-6">
                         {groupsAll && groupsAll.map((group) => (
-                            <Link key={group?.id} href={route('groups.show', group.id)}>
+                            <Link key={group?.id} href={route('groups.show', group?.id)}>
                                 <GroupCard
-                                    auth={auth.user}
-                                    groupId={group.id}
-                                    title={group.title}
-                                    owner={group.owner}
-                                    description={group.description}
-                                    reqCount={group.requests_count}
+                                    auth={auth?.user}
+                                    groupId={group?.id}
+                                    title={group?.title}
+                                    owner={group?.owner}
+                                    description={group?.description}
+                                    reqCount={group?.requests_count}
                                 />
                             </Link>
                         ))}

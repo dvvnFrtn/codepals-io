@@ -47,15 +47,15 @@ export default function Chat({ group, chats }) {
         <AuthenticatedLayout user={auth}>
             <Head title='Chat'/>
             <div className="max-w-5xl mx-auto p-8 bg-white shadow-sm rounded-lg mt-8">
-                <h1 className="text-3xl font-semibold text-gray-800">{group.title}</h1>
+                <h1 className="text-3xl font-semibold text-gray-800">{group?.title}</h1>
                 <div className="chat-container">
                     <div className="chat-messages overflow-y-auto max-h-96 mt-4">
                         {messages.map((msg) => (
-                            <div key={msg.id} className="flex justify-between mb-2">
+                            <div key={msg?.id} className="flex justify-between mb-2">
                                 <div className="bg-gray-200 rounded-lg p-2">
-                                    <strong>{msg.user.name}</strong>: {msg.message}
+                                    <strong>{msg?.user.name}</strong>: {msg?.message}
                                 </div>
-                                <div className="text-xs text-gray-500">{msg.created_at}</div>
+                                <div className="text-xs text-gray-500">{msg?.created_at}</div>
                             </div>
                         ))}
                     </div>
