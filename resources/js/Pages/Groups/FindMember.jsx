@@ -19,7 +19,7 @@ export default function FindMember({ auth, group, users }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AuthenticatedLayout user={auth}>
             <Head title={`Find ${group?.title}`} />
             
             <div className="bg-white shadow-sm rounded-lg mt-8 h-screen">

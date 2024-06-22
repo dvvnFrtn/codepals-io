@@ -20,7 +20,7 @@ export default function DetailGroup({ auth, group, isOwner, requests, isMember})
             });
     };
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AuthenticatedLayout user={auth}>
             <Head title={group?.title} />
 
             <div className="max-w-5xl mx-auto p-8 bg-white shadow-sm rounded-lg mt-8">

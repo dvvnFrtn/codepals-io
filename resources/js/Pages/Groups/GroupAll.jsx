@@ -6,7 +6,7 @@ import { Head, Link } from "@inertiajs/react";
 
 export default function GroupAll({ auth, groupsAll}) {
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AuthenticatedLayout user={auth}>
             <Head title="Groups" />
 
             <div className="flex gap-8 justify-center">

@@ -49,7 +49,7 @@ export default function GroupIndex({ auth, groups }) {
         });
     };
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AuthenticatedLayout user={auth}>
             <Head title="Groups" />
 
             <div className="flex gap-8 justify-center">
