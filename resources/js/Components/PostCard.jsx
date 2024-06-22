@@ -15,7 +15,6 @@ export default function PostCard({
     const [likeCount, setLikeCount] = useState(likesCount);
 
     const toggleLike = async () => {
-        console.log("is Liked?" + isLiked);
         try {
             if (liked) {
                 // Unlike the post

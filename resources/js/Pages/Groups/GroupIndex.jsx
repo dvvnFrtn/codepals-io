@@ -48,7 +48,6 @@ export default function GroupIndex({ auth, groups }) {
             },
         });
     };
-    console.log(lastChats[groups[0].id]);
     return (
         <AuthenticatedLayout user={auth}>
             <Head title="Groups" />

@@ -89,8 +89,6 @@ export default function MyIndex({auth, posts}) {
         setIsEditDesc(false);
     };
 
-    console.log(posts);
-
     return (
         <AuthenticatedLayout
             user={auth}
