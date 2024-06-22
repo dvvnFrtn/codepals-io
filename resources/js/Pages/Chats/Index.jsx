@@ -36,6 +36,7 @@ export default function Chat({ group, chats }) {
         axios.post(route('group.chat.store', group.id), { message })
             .then(response => {
                 setMessage('');
+                window.location.reload();
             })
             .catch(error => {
                 console.error('Error sending message:', error);
