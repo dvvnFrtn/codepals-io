@@ -5,9 +5,9 @@
         "api/index.php": { "runtime": "vercel-php@0.7.1" }
     },
     "routes": [
+        { "src": "/uploads/(.*)", "dest": "public/uploads/" },
         { "src": "/build/(.*)", "dest": "/public/build/" },
-        { "src": "/(.*)", "dest": "/api/index.php" },
-        { "src": "/uploads/(.*)", "dest": "public/uploads/" }
+        { "src": "/(.*)", "dest": "/api/index.php" }
     ],
     "public": true,
     "buildCommand": "vite build",
