@@ -91,7 +91,7 @@ export default function MyIndex({auth, posts}) {
 
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            user={auth}
         >
             <Head title="My" />
 
