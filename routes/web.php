@@ -14,6 +14,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\URL;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -24,7 +26,13 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.main');
+Route::middleware(['auth', CheckRole::class . ':admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard.main');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,10 +56,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
     Route::post('/posts/store', [PostController::class, 'store'])->name('post.store');
-  
+
     Route::post('/posts/{id}/like', [LikeController::class, 'store'])->name('posts.like');
     Route::delete('/posts/{id}/like', [LikeController::class, 'destroy'])->name('posts.unlike');
-  
+
     Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
     Route::get('/groups/{group}/find-member', [GroupController::class, 'findMember'])->name('groups.findMember');
 
