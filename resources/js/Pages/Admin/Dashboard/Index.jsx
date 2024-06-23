@@ -37,7 +37,6 @@ const Index = ({ auth, users, groups, posts }) => {
                                     <th className="px-6 py-4 text-left">ID</th>
                                     <th className="px-6 py-4 text-left">Name</th>
                                     <th className="px-6 py-4 text-left">Email</th>
-                                    <th className="px-6 py-4 text-left">Picture</th>
                                     <th className="px-6 py-4 text-left">Account Role</th>
                                     <th className="px-6 py-4 text-left">Created At</th>
                                     <th className="px-6 py-4 text-left">Updated At</th>
@@ -50,9 +49,6 @@ const Index = ({ auth, users, groups, posts }) => {
                                         <td className="px-6 py-4">{user.id}</td>
                                         <td className="px-6 py-4">{user.name}</td>
                                         <td className="px-6 py-4">{user.email}</td>
-                                        <td className="px-6 py-4">
-                                            <img src={user.picture} className="h-12 w-12 object-cover rounded-full" alt="User Picture" />
-                                        </td>
                                         <td className="px-6 py-4">{user.account_role}</td>
                                         <td className="px-6 py-4">{user.created_at}</td>
                                         <td className="px-6 py-4">{user.updated_at}</td>
@@ -120,7 +116,6 @@ const Index = ({ auth, users, groups, posts }) => {
                                 <tr className="bg-gray-100 border-b">
                                     <th className="px-6 py-4 text-left">ID</th>
                                     <th className="px-6 py-4 text-left">Content</th>
-                                    <th className="px-6 py-4 text-left">Image</th>
                                     <th className="px-6 py-4 text-left">Created At</th>
                                     <th className="px-6 py-4 text-left">Updated At</th>
                                     <th className="px-6 py-4 text-left">User ID</th>
@@ -132,9 +127,6 @@ const Index = ({ auth, users, groups, posts }) => {
                                     <tr key={post.id} className="border-b">
                                         <td className="px-6 py-4">{post.id}</td>
                                         <td className="px-6 py-4">{post.content}</td>
-                                        <td className="px-6 py-4">
-                                            <img src={post.image_path} className="h-12 w-12 object-cover rounded-full" alt="Post Image" />
-                                        </td>
                                         <td className="px-6 py-4">{post.created_at}</td>
                                         <td className="px-6 py-4">{post.updated_at}</td>
                                         <td className="px-6 py-4">{post.user_id}</td>
